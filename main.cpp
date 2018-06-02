@@ -81,8 +81,12 @@ int main(){
 	//car->goToCoordinate3(50.0,50.0,0);
 	//car->goToCoordinate3(0.0,50.0,0);
 	//car->goToCoordinate3(0.0,0.0,0);
-	car->planToCoordinate2(250.0,0);
-	car->planToCoordinate2(250.0,-300.0);
+	//car->planToCoordinate2(250.0,0);
+	//car->planToCoordinate2(250.0,-300.0);
+	car->planToCoordinate2(150,0);
+	car->planToCoordinate2(450,0);
+	car->planToCoordinate2(450,300);
+	car->planToCoordinate2(450,700,0);
 
 	/*
 	while(true){

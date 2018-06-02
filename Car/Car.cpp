@@ -61,8 +61,8 @@ Car::Car(float speed){
 	calibrateMPU();
 	
 	std::cout<< "Finish Calibrate MPU." << std::endl;
-	x = 0;
-	y = 0;
+	x = 150;
+	y = 160;
 	carAngle = 0;
 	targetAngle = 0;
 	
@@ -227,7 +227,7 @@ void Car::staticTurn(float toAngle){
 	targetAngle = toAngle;
 	float diffAngle = angleDif(targetAngle,carAngle);
 	int original = driveSpeed;
-	int slow = 1.4*driveSpeed;
+	int slow = 1.1*driveSpeed;
 	driveSpeed = slow;
 	while( absolute(diffAngle) > 1){
 		if(diffAngle > 0 ) {
@@ -376,9 +376,9 @@ void Car::goToCoordinate3(float xTarget, float yTarget, float angleTarget){
 	dy = yTarget - y;
 	distanceLeft = sqrtf(dx*dx + dy*dy);
 	targetAngle = atan2f(dy,dx)*180.0/M_PI;
-	//if(absolute(angleDif(targetAngle,carAngle)>30)){
+	if(absolute(angleDif(targetAngle,carAngle)>30)){
 		staticTurn(targetAngle);
-	//}
+	}
 	while( distanceLeft > 7.0){
 		
 		if(distanceLeft < 50){
@@ -450,6 +450,11 @@ void Car::planToCoordinate(float xTarget, float yTarget, float angleTarget){
 		//obstacleList.clear();
 	}
 	drive(STOP);
+	delay(100);
+	if(angleTarget != -999){
+		staticTurn(angleTarget);
+	}
+	drive(STOP);
 	delay(2000);
 }
 
@@ -474,7 +479,7 @@ void Car::planToCoordinate2(float xTarget, float yTarget, float angleTarget){
 	}
 	driveSpeed = slow;
 	
-	while( distanceLeft > 5.0){
+	while( distanceLeft > 2.5){
 		if(absolute(angleDif(targetAngle,carAngle)> 29)){
 		staticTurn(targetAngle);
 		}
@@ -502,10 +507,15 @@ void Car::planToCoordinate2(float xTarget, float yTarget, float angleTarget){
 		//printf("Ultra reading: %.2f %.2f %.2f %.2f %.2f\r\n", Ultra_reading[0],Ultra_reading[1],Ultra_reading[2],Ultra_reading[3],Ultra_reading[4]);
 
 	}
-	driveSpeed = original;
+	drive(STOP);
+	delay(100);
+	if(angleTarget != -999){
+		staticTurn(angleTarget);
+	}
 	drive(STOP);
 	delay(100);
 	printf("Arrived\r\n");
+	driveSpeed = original;
 }
 
 
