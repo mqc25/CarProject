@@ -13,7 +13,7 @@
 #define CYCLE 300
 
 extern std::ofstream file;
-
+extern bool isUpdateUltra;
 enum Direction{
 	FORWARD = 0,
 	RIGHT,
@@ -34,6 +34,7 @@ class Car{
 		float y;
 		float carAngle;
 		float targetAngle;
+		float biasAngle;
 		
 		float Kps;
 		float Kds;
@@ -65,7 +66,9 @@ class Car{
 		void goToCoordinate3(float, float, float angleTarget = -999);
 		void planToCoordinate(float,float, float angleTarget = -999);
 		void planToCoordinate2(float,float, float angleTarget = -999);
-
+		void checkObs();
+		float vectorFieldAngle(float);
+		float simpleObjectAvoidance(float);
 	
 };
 

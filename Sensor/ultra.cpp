@@ -56,14 +56,16 @@ float get_distance(int trig, int echo){
 
 
 void update_ultra (){
+	float tempReading = 0;
+	
 	for (int i = 0; i < 5; i++)
 	{
-		Ultra_reading[i] = 0;
-		for(int j =0; j<8; j++){
-			Ultra_reading[i] += get_distance(trigPin[i],echoPin[i]);
-		}
-		Ultra_reading[i] /= 8;
+		tempReading = get_distance(trigPin[i],echoPin[i]);
+		if(tempReading > 100) continue;
+		Ultra_reading[i] += 0.25*tempReading;
+		Ultra_reading[i] /= 1.25;
 	}
+
 }
 
 

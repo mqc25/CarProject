@@ -5,6 +5,21 @@
 #include <sstream>
 #include <vector>
 
+#include <stdio.h>
+#include <sys/socket.h>
+#include <stdlib.h>
+#include <netinet/in.h>
+#include <cstring>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <iostream>
+#include <thread>
+
+using namespace std;
+extern char buffer[1024];
+extern volatile bool newSignal;
+extern int conn;
+
 typedef struct Coordinate{
 	int x;
 	int y;
@@ -38,6 +53,8 @@ float realDistance2D(Coordinate,Coordinate);
 float constrainAngle(float x);
 std::set<Coordinate> generateCoordinate(Coordinate currentPos, float currentHeading, float step, float distance);
 
-
+void setupSocket(int);
+void sendMsg(char* msg);
+float* generateAngle(float curAngle);
 
 #endif

@@ -54,6 +54,11 @@ void listenToServer(int socket){
 		else break;
 	}
 }
+
+void sendMsg(int socket, string msg){
+	char* temp = (char*)msg.c_str();
+	send(socket , temp , strlen(temp) , 0 );
+}
   
 int main(int argc, char const *argv[])
 {
